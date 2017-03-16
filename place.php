@@ -18,23 +18,27 @@ class Place extends CI_Controller {
 		redirect('place/page_split');
 	}
 	
+	public function test(){
+		
+	}
+	
 	public function page_split()
 	{
 		//$this->load->model('model_place/select_place');		
 		//--------------------------------------------------------------------------------------------------------------------------------------
 		$data['s_name']=$this->input->get('s_name');
 		
-		$this->theme->base_url=site_url('place/page_split'); //URL ˹�� Page
-		$this->theme->total_rows=$this->model_place->select_place('total_rows',$data['s_name']); //�ӹǹ��¡�÷�����
-		$this->theme->per_page=10; //�ӹǹ��¡�õ��˹��
-		$this->theme->uri_segment=3; //Segment �ͧ�����Ţ˹�� 
-		$this->theme->page=$this->uri->segment(3); //˹�һѨ�غѹ
+		$this->theme->base_url=site_url('place/page_split'); //URL Ë¹éÒ Page
+		$this->theme->total_rows=$this->model_place->select_place('total_rows',$data['s_name']); //¨Ó¹Ç¹ÃÒÂ¡ÒÃ·Ñé§ËÁ´
+		$this->theme->per_page=10; //¨Ó¹Ç¹ÃÒÂ¡ÒÃµèÍË¹éÒ
+		$this->theme->uri_segment=3; //Segment ¢Í§ËÁÒÂàÅ¢Ë¹éÒ 
+		$this->theme->page=$this->uri->segment(3); //Ë¹éÒ»Ñ¨¨ØºÑ¹
 		
 		
 		$data['per_page']=$this->theme->per_page; 
-		$data['page']=$this->theme->page ? $this->theme->page : 1; //�觢����ʴ��ӴѺ
-		$data['pagination']=$this->theme->splits(); //�觢��� Gen �����Ţ��˹�� 
-		$data['start']=($data['page'] * $data['per_page'])-($data['per_page']); //��������ʴ������Ũҡ Record  xx 
+		$data['page']=$this->theme->page ? $this->theme->page : 1; //Êè§¢Öé¹ä»áÊ´§ÅÓ´Ñº
+		$data['pagination']=$this->theme->splits(); //Êè§¢Öé¹ä» Gen ËÁÒÂàÅ¢áºè§Ë¹éÒ 
+		$data['start']=($data['page'] * $data['per_page'])-($data['per_page']); //àÃÔèÁµé¹áÊ´§¢éÍÁÙÅ¨Ò¡ Record  xx 
 		$data['id_table']='id=""';
 		//-------------------------------------------------------------------------------------------------------------------------------------
 		$data['result']=$this->model_place->select_place('get_data',$data['s_name'], $data['per_page'], $data['start']);
@@ -45,8 +49,8 @@ class Place extends CI_Controller {
 	public function index_result_array()
 	{
 		$data['s_name']='';
-		$data['pagination']=''; //�觢��� Gen �����Ţ��˹�� 
-		$data['start']=0; //��������ʴ������Ũҡ Record  xx 
+		$data['pagination']=''; //Êè§¢Öé¹ä» Gen ËÁÒÂàÅ¢áºè§Ë¹éÒ 
+		$data['start']=0; //àÃÔèÁµé¹áÊ´§¢éÍÁÙÅ¨Ò¡ Record  xx 
 		$data['id_table']='id="dataTables"';
 		//$s_name = $this->input->post('s_name');		
 		$data['result'] =  $this->model_place->select_place_joinh();
@@ -57,7 +61,7 @@ class Place extends CI_Controller {
 	public function add_place(){
 			$data['place_type_select']  = $this->theme->dropdown_select("SELECT place_type_id, place_type_name FROM place_type WHERE place_type_status = 1 Order by  place_type_id ASC  ",'38', 'place_type_id', 'place_type_name');
 		
-			///// Dropdown �ѧ��Ѵ ����� �Ӻ� 
+			///// Dropdown ¨Ñ§ËÇÑ´ ÍÓàÀÍ µÓºÅ 
 			$data['province_select']  = $this->theme->dropdown_select("SELECT PROVINCE_ID,PROVINCE_NAME FROM thai_province",'', 'PROVINCE_ID', 'PROVINCE_NAME');
 			$data['conv_img'] =  '';
 			
@@ -99,7 +103,7 @@ class Place extends CI_Controller {
 				
 						$this->model_place->add($data);
 						
-						//��������ö��Ẻ����˹� input ���� �� input ��������˹�� form �е�ͧ�ժ�������͹ fields � Database
+						//ËÃ×ÍÊÒÁÒÃ¶·ÓáººäÁè¡ÓË¹´ input ¡çä´é áµè input ·ÕèÍÂØèã¹Ë¹éÒ form ¨ÐµéÍ§ÁÕª×èÍàËÁ×Í¹ fields ã¹ Database
 						//$data=$this->input->post();
 						//$this->model_animal->add($data);
                       
@@ -113,7 +117,7 @@ class Place extends CI_Controller {
 			
 			$data['place_type_select']  = $this->theme->dropdown_select("SELECT place_type_id, place_type_name FROM place_type WHERE place_type_status = 1 Order by  place_type_id ASC  ",$data['place_type'], 'place_type_id', 'place_type_name');
 		
-			///// Dropdown �ѧ��Ѵ ����� �Ӻ� 
+			///// Dropdown ¨Ñ§ËÇÑ´ ÍÓàÀÍ µÓºÅ 
 			$data['province_select']  = $this->theme->dropdown_select("SELECT PROVINCE_ID,PROVINCE_NAME FROM thai_province",$data['place_province'], 'PROVINCE_ID', 'PROVINCE_NAME');
 			$data['amphur_select']  = $this->theme->dropdown_select("SELECT AMPHUR_ID,AMPHUR_NAME FROM thai_amphur",$data['place_amphur'], 'AMPHUR_ID', 'AMPHUR_NAME');
 			$data['tumbon_select']  = $this->theme->dropdown_select("SELECT TUMBON_ID,TUMBON_NAME FROM thai_tumbon",$data['place_tumbon'], 'TUMBON_ID', 'TUMBON_NAME');
