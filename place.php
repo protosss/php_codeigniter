@@ -22,6 +22,10 @@ class Place extends CI_Controller {
 		
 	}
 	
+	public function test2(){
+		
+	}	
+	
 	public function page_split()
 	{
 		//$this->load->model('model_place/select_place');		
